@@ -1,4 +1,5 @@
 import { Connection, LAMPORTS_PER_SOL, PublicKey } from "@solana/web3.js";
+import "dotenv/config";
 
 const suppliedPublicKey = process.argv[2];
 
@@ -6,7 +7,7 @@ if (!suppliedPublicKey) throw new Error("Please provide a public key.");
 
 try {
   const env = process.argv[3] || "--D";
-  const connectionURLs = { "--D": "https://api.devnet.solana.com", "--M": "https://api.mainnet-beta.solana.com/" };
+  const connectionURLs = { "--D": process.env.NEXT_PUBLIC_DEVNET_URL, "--M": process.env.NEXT_PUBLIC_MAINNET_URL };
 
   const connection = new Connection(connectionURLs[env], "confirmed");
   const publicKey = new PublicKey(suppliedPublicKey);
